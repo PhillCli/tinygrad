@@ -91,10 +91,10 @@ generate_cuda() {
 }
 
 generate_nv() {
-  NVKERN_COMMIT_HASH=d6b75a34094b0f56c2ccadf14e5d0bd515ed1ab6
+  NVKERN_COMMIT_HASH=e45d91de0224e17a6bf7c971d8f165090b3c07a6
   NVKERN_SRC=/tmp/open-gpu-kernel-modules-$NVKERN_COMMIT_HASH
   if [ ! -d "$NVKERN_SRC" ]; then
-    git clone https://github.com/tinygrad/open-gpu-kernel-modules $NVKERN_SRC
+    git clone https://github.com/NVIDIA/open-gpu-kernel-modules $NVKERN_SRC
     pushd .
     cd $NVKERN_SRC
     git reset --hard $NVKERN_COMMIT_HASH
@@ -105,6 +105,8 @@ generate_nv() {
     extra/nv_gpu_driver/clc6c0qmd.h \
     $NVKERN_SRC/src/common/sdk/nvidia/inc/class/cl0080.h \
     $NVKERN_SRC/src/common/sdk/nvidia/inc/class/cl2080_notification.h \
+    $NVKERN_SRC/src/common/sdk/nvidia/inc/class/clc3c0.h \
+    $NVKERN_SRC/src/common/sdk/nvidia/inc/class/clc5c0.h \
     $NVKERN_SRC/src/common/sdk/nvidia/inc/class/clc56f.h \
     $NVKERN_SRC/src/common/sdk/nvidia/inc/class/clc56f.h \
     $NVKERN_SRC/src/common/sdk/nvidia/inc/class/clc56f.h \
