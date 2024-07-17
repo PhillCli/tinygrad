@@ -402,6 +402,9 @@ class AMDDevice(HCQCompiled):
     with open(f"{AMDDevice.gpus[self.device_id]}/properties", "r") as f: self.properties = {line.split()[0]: int(line.split()[1]) for line in f}
     self.drm_fd = os.open(f"/dev/dri/renderD{self.properties['drm_render_minor']}", os.O_RDWR)
     target = int(self.properties['gfx_target_version'])
+    if target_override := getenv("HSA_OVERRIDE_GFX_VERSION", ""):
+        target = int(target_override.replace('.', '0'))
+        print(f"new gfx target:{target}")
     self.arch = "gfx%d%x%x" % (target // 10000, (target // 100) % 100, target % 100)
     kio.acquire_vm(AMDDevice.kfd, drm_fd=self.drm_fd, gpu_id=self.gpu_id)
 
